@@ -103,15 +103,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _showDetails(User user) {
+    final iconGender = user.gender == 'male' ? Icons.male : Icons.female;
     return Scaffold(
         appBar: AppBar(
           title: Text(user.name),
         ),
-        body: Column(
-        children: [
-          Image.network(user.picture),
-          Text(user.name),
-          Text(user.gender),
-        ]));
+        body: Center(
+          child: Column(
+            children: [
+              Image.network(user.picture, height:175),
+              Icon(iconGender),
+              Text(
+                user.name,
+                style: const TextStyle(fontSize: 24),
+              ),
+              Row(children: [
+                const Icon(Icons.email),
+                Text(user.email)
+              ])
+
+            ])
+        )
+    );
   }
 }

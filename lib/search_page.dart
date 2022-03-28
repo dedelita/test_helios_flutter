@@ -4,8 +4,8 @@ import 'user.dart';
 // Search Page
 class SearchPage extends StatefulWidget {
   final List<User> listUsers;
-  List<User> results = [];
-  SearchPage({Key? key, required this.listUsers}) : super(key: key);
+
+  const SearchPage({Key? key, required this.listUsers}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SearchPageState();
@@ -14,7 +14,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   // This list holds the data for the list view
   List<User> _foundUsers = [];
-
+  final TextEditingController _textEditingController = TextEditingController();
   @override
   initState() {
     // at the beginning, all users are shown
@@ -22,7 +22,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 // This function is called whenever the text field changes
   void _runFilter(String enteredKeyword) {
-    print(enteredKeyword);
     List<User> results = [];
     if (enteredKeyword.isEmpty) {
       // if the search field is empty or only contains white-space, we'll display all users
@@ -44,7 +43,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final teController = TextEditingController();
     return Scaffold(
         appBar: AppBar(
           // The search area here
@@ -53,24 +51,23 @@ class _SearchPageState extends State<SearchPage> {
               height: 40,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(5)),
-              child: Center(
                 child: TextField(
                   onChanged: (value) =>_runFilter(value),
-                  controller: teController,
+                  controller: _textEditingController,
                   decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.clear),
                         onPressed: () {
                           /* Clear the search field */
-                          //teController.clear();
+                         _textEditingController.clear();
                         },
                       ),
                       hintText: 'Search...',
                       border: InputBorder.none),
                 ),
               ),
-            )),
+            ),
         body: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(children: [
@@ -89,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
                         style: const TextStyle(fontSize: 24),
                       ),
                       title: Text(_foundUsers[index].name),
-                      subtitle: Text('${_foundUsers[index].gender}'),
+                      subtitle: Text(_foundUsers[index].gender),
                     ),
                   ),
                 )
