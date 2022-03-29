@@ -46,10 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text("Get users"),
           actions: [
             IconButton(
-                onPressed: () =>
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchPage(listUsers: users))),
-                icon: const Icon(Icons.search)
-            )
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => SearchPage(listUsers: users))),
+                icon: const Icon(Icons.search))
           ],
           centerTitle: true,
         ),
@@ -104,26 +103,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _showDetails(User user) {
     final iconGender = user.gender == 'male' ? Icons.male : Icons.female;
+    final colorGender = user.gender == 'male' ? Colors.blue : Colors.pink;
     return Scaffold(
         appBar: AppBar(
           title: Text(user.name),
         ),
         body: Center(
-          child: Column(
-            children: [
-              Image.network(user.picture, height:175),
-              Icon(iconGender),
-              Text(
-                user.name,
-                style: const TextStyle(fontSize: 24),
-              ),
-              Row(children: [
-                const Icon(Icons.email),
-                Text(user.email)
-              ])
-
-            ])
-        )
-    );
+            child: Container(
+                margin: const EdgeInsets.only(top: 30.0),
+                child: Column(children: <Widget>[
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(user.picture)),
+                  const SizedBox(height: 10),
+                  Icon(iconGender, color: colorGender),
+                  Text(
+                    user.name,
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                      margin: const EdgeInsets.only(left: 15),
+                      child: Column(children: [
+                        Row(children: [
+                          const Icon(Icons.email),
+                          Text(" " + user.email)
+                        ]),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            const Icon(Icons.location_on),
+                            Text(" " + user.address.toString())
+                          ],
+                        )
+                      ]))
+                ]))));
   }
 }
