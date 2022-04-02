@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_helios_flutter/pages/userDetailsPage.dart';
 import 'package:test_helios_flutter/entities/user.dart';
-import 'search_page.dart';
+import 'package:test_helios_flutter/pages/search_page.dart';
+import 'package:test_helios_flutter/APIs/randomUserAPI.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
