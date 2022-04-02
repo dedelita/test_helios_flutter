@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'user.dart';
+import 'package:test_helios_flutter/entities/user.dart';
+
+import 'userDetailsPage.dart';
 
 // Search Page
 class SearchPage extends StatefulWidget {
@@ -77,10 +79,13 @@ class _SearchPageState extends State<SearchPage> {
                   itemCount: _foundUsers.length,
                   itemBuilder: (context, index) => Card(
                     key: ValueKey(index),
-                    color: Colors.amberAccent,
                     elevation: 4,
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => UserDetailsPage(user: _foundUsers[index])));
+                      },
                       leading: Text(
                         _foundUsers[index].name.toString(),
                         style: const TextStyle(fontSize: 24),

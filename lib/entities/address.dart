@@ -16,6 +16,7 @@ class Address {
     required this.country,
     required this.postcode
 });
+  
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
       street:json['street']['number'].toString() + " " + json['street']['name'],

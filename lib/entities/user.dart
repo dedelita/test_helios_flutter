@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'address.dart';
-part 'user.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class User {
@@ -22,20 +21,14 @@ class User {
     required this.address,
   });
 
-  /*factory User.fromJson(Map<String, dynamic> json) =>
+  factory User.fromJson(Map<String, dynamic> json) =>
       User(
         name: json['name']['first'] + " " + json['name']['last'],
         gender: json['gender'],
         picture: json['picture']['large'],
         email: json['email'],
-        address: Address(json['location']['street'], json['location']['city'], json['location']['state'], json['location']['postcode'])
-    );*/
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    print(_$UserFromJson(json));
-    return _$UserFromJson(json);
-  }
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+        address: Address.fromJson(json['location']),
+    );
 }
 
 Future<List<User>> fetchUsers() async {
