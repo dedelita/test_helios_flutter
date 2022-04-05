@@ -14,40 +14,36 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   // This list holds the data for the list view
-  List<User> _foundUsers = [];
+  late List<User> _foundUsers;
   final TextEditingController _textEditingController = TextEditingController();
   @override
   initState() {
     // at the beginning, all users are shown
     super.initState();
+    _foundUsers = widget.listUsers;
   }
 
-// This function is called whenever the text field changes
   void _runFilter(String enteredKeyword) {
-    List<User> results = [];
-    if (enteredKeyword.isEmpty) {
-      // if the search field is empty or only contains white-space, we'll display all users
-      results = widget.listUsers;
-    } else {
-      results = widget.listUsers
+    setState(() {
+      _foundUsers = widget.listUsers
           .where((user) =>
               user.name.toLowerCase().contains(enteredKeyword.toLowerCase()) ||
               (user.gender == enteredKeyword.toLowerCase()))
           .toList();
-      // we use the toLowerCase() method to make it case-insensitive
-    }
-
-    // Refresh the UI
-    setState(() {
-      _foundUsers = results;
     });
+  }
+
+  void resetSearch() {
+      _textEditingController.clear();
+      setState(() {
+        _foundUsers = widget.listUsers;
+      });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // The search area here
           title: Container(
             width: double.infinity,
             height: 40,
@@ -60,10 +56,7 @@ class _SearchPageState extends State<SearchPage> {
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      /* Clear the search field */
-                      _textEditingController.clear();
-                    },
+                    onPressed: resetSearch,
                   ),
                   hintText: 'Recherche...',
                   border: InputBorder.none),
