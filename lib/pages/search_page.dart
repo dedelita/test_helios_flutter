@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:test_helios_flutter/entities/user.dart';
-
 import 'user_details_page.dart';
 
 // Search Page
@@ -22,6 +21,7 @@ class _SearchPageState extends State<SearchPage> {
     // at the beginning, all users are shown
     super.initState();
   }
+
 // This function is called whenever the text field changes
   void _runFilter(String enteredKeyword) {
     List<User> results = [];
@@ -31,7 +31,8 @@ class _SearchPageState extends State<SearchPage> {
     } else {
       results = widget.listUsers
           .where((user) =>
-      user.name.toLowerCase().contains(enteredKeyword.toLowerCase()) || (user.gender == enteredKeyword.toLowerCase()))
+              user.name.toLowerCase().contains(enteredKeyword.toLowerCase()) ||
+              (user.gender == enteredKeyword.toLowerCase()))
           .toList();
       // we use the toLowerCase() method to make it case-insensitive
     }
@@ -42,66 +43,62 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           // The search area here
-            title: Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
-                child: TextField(
-                  onChanged: (value) =>_runFilter(value),
-                  controller: _textEditingController,
-                  decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          /* Clear the search field */
-                         _textEditingController.clear();
-                        },
-                      ),
-                      hintText: 'Search...',
-                      border: InputBorder.none),
-                ),
-              ),
+          title: Container(
+            width: double.infinity,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            child: TextField(
+              onChanged: (value) => _runFilter(value),
+              controller: _textEditingController,
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      /* Clear the search field */
+                      _textEditingController.clear();
+                    },
+                  ),
+                  hintText: 'Recherche...',
+                  border: InputBorder.none),
             ),
+          ),
+        ),
         body: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(children: [
               Expanded(
                 child: _foundUsers.isNotEmpty
                     ? ListView.builder(
-                  itemCount: _foundUsers.length,
-                  itemBuilder: (context, index) => Card(
-                    key: ValueKey(index),
-                    elevation: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => UserDetailsPage(user: _foundUsers[index])));
-                      },
-                      leading: Text(
-                        _foundUsers[index].name.toString(),
-                        style: const TextStyle(fontSize: 24),
-                      ),
-                      title: Text(_foundUsers[index].name),
-                      subtitle: Text(_foundUsers[index].gender),
-                    ),
-                  ),
-                )
+                        itemCount: _foundUsers.length,
+                        itemBuilder: (context, index) => Card(
+                          key: ValueKey(index),
+                          elevation: 4,
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => UserDetailsPage(
+                                      user: _foundUsers[index])));
+                            },
+                            title: Text(_foundUsers[index].name,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
+                            subtitle: Text(_foundUsers[index].gender),
+                          ),
+                        ),
+                      )
                     : const Text(
-                  'No results found',
-                  style: TextStyle(fontSize: 24),
-                ),
+                        'Aucun résultat',
+                        style: TextStyle(fontSize: 24),
+                      ),
               ),
-            ])
-        )
-    );
+            ])));
   }
 }

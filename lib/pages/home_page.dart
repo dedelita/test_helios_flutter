@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_helios_flutter/pages/user_details_page.dart';
 import 'package:test_helios_flutter/entities/user.dart';
 import 'package:test_helios_flutter/pages/search_page.dart';
-import 'package:test_helios_flutter/APIs/random_userAPI.dart';
+import 'package:test_helios_flutter/APIs/random_user_api.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -33,8 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     futureUsers = fetchUsers();
-    _controller = ScrollController();
-    _controller.addListener(_loadMoreUsers);
+    _controller = ScrollController()..addListener(_loadMoreUsers);
   }
 
   @override
@@ -47,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Get users"),
+          title: Text(widget.title),
           actions: [
             IconButton(
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
@@ -71,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         } else {
           return const Center(
             child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.green)),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue)),
           );
         }
       },
@@ -94,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (_) => UserDetailsPage(user: users[index])));
                 },
                 title: Text(
-                  index.toString() + " " + users[index].name,
+                  users[index].name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Text(users[index].gender)),

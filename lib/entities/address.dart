@@ -1,7 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-
-@JsonSerializable()
 class Address {
   final String street;
   final String city;
@@ -29,6 +25,6 @@ class Address {
 
   @override
   String toString() {
-    return street + ", " + city + "\n" + state + ", " + postcode + "\n" + country;
+    return '$street, $city \n $state, $postcode \n $country';
   }
 }

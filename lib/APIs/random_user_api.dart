@@ -1,6 +1,6 @@
-import 'package:test_helios_flutter/entities/user.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'package:test_helios_flutter/entities/user.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<User>> fetchUsers() async {

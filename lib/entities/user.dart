@@ -1,7 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'address.dart';
 
-@JsonSerializable(explicitToJson: true)
 class User {
   final String name;
   final String gender;
@@ -19,7 +17,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) =>
       User(
-        name: json['name']['first'] + " " + json['name']['last'],
+        name: json['name']['first'] + ' ' + json['name']['last'],
         gender: json['gender'],
         picture: json['picture']['large'],
         email: json['email'],
