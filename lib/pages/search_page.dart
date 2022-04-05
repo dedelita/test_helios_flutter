@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_helios_flutter/entities/user.dart';
 
-import 'userDetailsPage.dart';
+import 'user_details_page.dart';
 
 // Search Page
 class SearchPage extends StatefulWidget {
